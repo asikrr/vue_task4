@@ -5,7 +5,18 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: function() {
+      return import('../views/HomeView.vue')
+    },
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: function() {
+      return import('../components/Login.vue')
+    },
+    beforeEnter: ifNotAuthenticated,
   },
 ]
 
@@ -15,3 +26,19 @@ const router = createRouter({
 })
 
 export default router
+
+const ifNotAuthenticated = (to, from, next) => {
+  if(!store.getters.isAuthenticated) {
+    next();
+    return;
+  }
+  next('/');
+};
+
+const ifAuthenticated = (to, from, next) => {
+  if(store.getters.isAuthenticated) {
+    next();
+    return;
+  }
+  next('/login');
+};
