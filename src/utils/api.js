@@ -46,3 +46,16 @@ export const registerRequest = async (userData) => {
     const result = await response.json();
     return result.data.user_token; 
 };
+
+export const getProductsRequest = async () => {
+    const response = await fetch(`${API}/products`, {
+        method: 'GET',
+    });
+
+    if (!response.ok) {
+        throw new Error('Не удалось загрузить товары');
+    }
+
+    const result = await response.json();
+    return result.data;
+};
