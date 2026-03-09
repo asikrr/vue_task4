@@ -25,10 +25,10 @@ export default createStore({
             localStorage.setItem('myAppToken', token);
             resolve();
           })
-          .catch(() => {
+          .catch((error) => {
             commit('AUTH_ERROR');
             localStorage.removeItem('myAppToken');
-            reject();
+            reject(error);
           });
       });
     },

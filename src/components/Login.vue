@@ -1,8 +1,8 @@
 <template>
     <form class="login" @submit.prevent="login">
         <h1>Sign in</h1>
-        <label>User name</label>
-        <input type="text" required v-model="username"/>
+        <label>Email</label>
+        <input type="email" required v-model="email"/>
         <label>Password</label>
         <input type="password" required v-model="password"/>
         <hr />
@@ -21,12 +21,12 @@
 
     .login input,
     button {
-    border:1 px solid black;
-    border-radius:5px;
+        border:1 px solid black;
+        border-radius:5px;
     }
 
     hr {
-    margin: 10px 0;
+        margin: 10px 0;
     }
 </style>
 
@@ -34,19 +34,19 @@
 export default {
     data() {
         return {
-            username: "",
+            email: "",
             password: "",
         };
     },
     methods: {
         login() {
-            constuserData = {
-                username: this.username,
+            const userData = {
+                email: this.email,
                 password: this.password,
             };
             
             this.$store
-                .dispatch(AUTH_REQUEST, userData)
+                .dispatch('AUTH_REQUEST', userData)
                 .then(() => this.$router.push("/"));
         },
     },
