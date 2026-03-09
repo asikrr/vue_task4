@@ -8,7 +8,7 @@
     <p>{{ product.description }}</p>
     <p>{{ product.price }}₽</p>
     
-    <button>В корзину</button>
+    <button @click="addToCart">Добавить в корзину</button>
   </div>
 </template>
 
@@ -24,6 +24,11 @@ export default {
   computed: {
     imageUrl() {
       return `http://lifestealer86.ru/${this.product.image}`;
+    }
+  },
+  methods: {
+    addToCart() {
+      this.$store.commit('ADD_TO_CART', this.product);
     }
   }
 };
