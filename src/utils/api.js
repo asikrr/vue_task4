@@ -16,3 +16,15 @@ export const loginRequest = (user) => {
         });
     });
 };
+
+export const logoutRequest = async (token) => {
+    const response = await fetch(`${API}/logout`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    });
+
+    const result = await response.json();
+    return result.data;
+};
