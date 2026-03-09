@@ -19,16 +19,21 @@ const ifAuthenticated = (to, from, next) => {
 
 const routes = [
   {
+    path: '/',
+    name: 'home',
+    component: () => import('../views/HomeView.vue'),
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('../components/Login.vue'),
     beforeEnter: ifNotAuthenticated 
   },
-  {
-    path: '/',
-    name: 'home',
-    component: () => import('../views/HomeView.vue'),
-    beforeEnter: ifAuthenticated 
+   {
+    path: '/signup',      
+    name: 'signup',
+    component: () => import('../components/Signup.vue'),
+    beforeEnter: ifNotAuthenticated
   }
 ]
 

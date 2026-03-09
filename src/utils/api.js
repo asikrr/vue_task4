@@ -2,7 +2,7 @@ const API = process.env.VUE_APP_API;
 
 export const loginRequest = (user) => {
     return new Promise((resolve, reject) => {
-    fetch (`${API}/login`, {
+    fetch(`${API}/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
@@ -27,4 +27,22 @@ export const logoutRequest = async (token) => {
 
     const result = await response.json();
     return result.data;
+};
+
+export const registerRequest = async (userData) => {
+    const response = await fetch(`${API}/signup`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify(userData),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Ошибка регистрации');
+    }
+
+    const result = await response.json();
+    return result.data.user_token; 
 };

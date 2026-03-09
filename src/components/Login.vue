@@ -1,13 +1,16 @@
 <template>
     <form class="login" @submit.prevent="login">
-        <h1>Sign in</h1>
+        <h1>Вход</h1>
         <label>Email</label>
         <input type="email" required v-model="email"/>
-        <label>Password</label>
+        <label>Пароль</label>
         <input type="password" required v-model="password"/>
         <hr />
-        <button type="submit">Login</button>
+        <button type="submit">Вход</button>
     </form>
+    <div>
+        Еще нет аккаунта? <router-link to="/signup">Зарегистрироваться</router-link>
+    </div>
 </template>
 
 <style scoped>
