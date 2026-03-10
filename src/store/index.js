@@ -4,11 +4,13 @@ import { loginRequest, logoutRequest, registerRequest } from '@/utils/api';
 export default createStore({
   state: {
     token: localStorage.getItem('myAppToken') || '',
-    cart: []
+    cart: [],
+    orders: []
   },
   getters: {
     isAuthenticated: (state) => !!state.token,
-    cartItems: (state) => state.cart
+    cartItems: (state) => state.cart,
+    ordersList: (state) => state.orders
   },
   mutations: {
     AUTH_SUCCESS: (state, token) => {
@@ -24,6 +26,10 @@ export default createStore({
       state.cart.splice(index, 1);
     },
     CLEAR_CART: (state) => {
+      state.cart = [];
+    },
+    MAKE_ORDER: (state) => {
+      state.orders.unshift(state.cart);
       state.cart = [];
     }
   },
@@ -56,13 +62,15 @@ export default createStore({
             throw error; 
         }
     },
-    LOGOUT: ({ commit, state }) => {
-      return logoutRequest(state.token)
-      .finally(() => {
+    async LOGOUT({ commit, state }) {
+      try {
+        return await logoutRequest(state.token);
+      } 
+      finally {
         commit('AUTH_ERROR');
         localStorage.removeItem('myAppToken');
         commit('CLEAR_CART');
-      });
+      }
     },
   },
   modules: {}
