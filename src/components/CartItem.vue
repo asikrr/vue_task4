@@ -79,7 +79,7 @@
     background-color: #c96e6e;
   }
 
-  .danger-button:hover {
+  .card-info .danger-button:hover {
     background-color: #b63c3c;
     color: #fff;
   }
