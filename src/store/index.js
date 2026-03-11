@@ -20,7 +20,21 @@ export default createStore({
       state.token = '';
     },
     ADD_TO_CART: (state, product) => {
-      state.cart.push(product);
+      const existingItem = state.cart.find(item => item.id === product.id);
+      if (existingItem) {
+        existingItem.quantity++;
+      } 
+      else {
+        state.cart.push({ ...product, quantity: 1 });
+      }
+    },
+    INCREMENT_ITEM: (state, index) => {
+      state.cart[index].quantity++;
+    },
+    DECREMENT_ITEM: (state, index) => {
+      if (state.cart[index].quantity > 1) {
+        state.cart[index].quantity--;
+      }
     },
     REMOVE_FROM_CART: (state, index) => {
       state.cart.splice(index, 1);

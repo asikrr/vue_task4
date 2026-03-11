@@ -9,7 +9,12 @@
       <div>
         <button @click="makeOrder()">Оформить заказ</button>
       </div>
-      <CartItem v-for="(item, index) in cartItems" :key="index" :product="item">
+      <CartItem 
+        v-for="(item, index) in cartItems" 
+        :key="index" 
+        :product="item" 
+        :index="index"
+      >
       </CartItem>
     </div>
   </section>
