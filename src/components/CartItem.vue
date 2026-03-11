@@ -5,11 +5,8 @@
     </div>
     <div class="card-info">
       <h3 class="card-title">{{ product.name }}</h3>
-      <p class="card-description">{{ product.description }}</p>
-      <div class="card-cart">
-        <p class="card-price">{{ product.price }}₽</p>
-        <button @click="addToCart">Добавить в корзину</button>
-      </div>
+      <p class="card-price">{{ product.price }}₽</p>
+      <button @click="removeFromCart(index)" class="danger-button">Удалить</button>
     </div>
   </article>
 </template>
@@ -17,32 +14,18 @@
 <style scoped>
   .card-container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    max-height: 200px;
     background-color: #ffffff;
     border: 1px solid #b5ce87;
     border-radius: 10px;
     padding: 20px;
-    gap: 10px;
+    gap: 20px;
   }
 
   .card-info {
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
-    gap: 10px;
-  }
-
-  .card-description {
-    text-align: left;
-    font-size: 14px;
-    color: #3b3b3b;
-  }
-
-  .card-cart {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
   }
 
@@ -59,12 +42,13 @@
     display: flex;
     border-radius: 10px;
     overflow: hidden;
+    max-width: 200px;
+    max-height: 200px;
   }
 
   img {
-    width: 100%;
     height: 100%;
-    object-fit: cover
+    object-fit: cover;
   }
 
   button {
@@ -80,11 +64,20 @@
     transition: 0.3s;
     background-color: #9cc54f;
   }
+
+  .danger-button {
+    background-color: #c96e6e;
+  }
+
+  .danger-button:hover {
+    background-color: #b63c3c;
+    color: #fff;
+  }
 </style>
 
 <script>
 export default {
-  name: 'ProductCard',
+  name: 'CartItem',
   props: {
     product: {
       type: Object,
@@ -97,8 +90,8 @@ export default {
     }
   },
   methods: {
-    addToCart() {
-      this.$store.commit('ADD_TO_CART', this.product);
+    removeFromCart(index) {
+      this.$store.commit('REMOVE_FROM_CART', index);
     }
   }
 };
