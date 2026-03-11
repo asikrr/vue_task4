@@ -44,16 +44,16 @@
   }
 
   .card-image {
-    display: flex;
+    display: flex;   
     border-radius: 10px;
     overflow: hidden;
-    max-width: 200px;
-    max-height: 200px;
+    width: 200px; 
   }
 
   img {
+    width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; 
   }
 
   button {
