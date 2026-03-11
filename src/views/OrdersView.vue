@@ -1,11 +1,10 @@
 <template>
     <div>
         <h1>Оформленные заказы</h1>
-
+        <router-link to="/">&lt Назад</router-link>
         <p v-if="ordersList.length === 0">
             Список заказов пуст
         </p>
-
         <div v-else>
             <div v-for="order in ordersList">
                 <div v-for="item in order">

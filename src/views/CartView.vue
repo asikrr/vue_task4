@@ -1,6 +1,7 @@
 <template>
   <section class="cart-container">
     <h1>Корзина</h1>
+    <router-link to="/">&lt Назад</router-link>
     <div v-if="cartItems.length === 0">
       <p>Корзина пуста</p>
     </div>

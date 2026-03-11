@@ -1,5 +1,6 @@
 <template>
   <div class="register-container">
+    <router-link to="/">&lt Назад</router-link>
     <form @submit.prevent="submitRegister" class="register-form">
       <h1>Регистрация</h1>
       <p v-if="error" class="error-message">{{ error }}</p>

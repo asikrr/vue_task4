@@ -1,5 +1,6 @@
 <template>
     <div class="login-container">
+        <router-link to="/">&lt Назад</router-link>
         <form class="login-form" @submit.prevent="login">
             <h1>Вход</h1>
             <div class="form-field">
