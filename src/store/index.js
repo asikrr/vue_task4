@@ -43,7 +43,7 @@ export default createStore({
       state.cart = [];
     },
     MAKE_ORDER: (state) => {
-      state.orders.unshift(state.cart);
+      state.orders.unshift([...state.cart]); 
       state.cart = [];
     }
   },
