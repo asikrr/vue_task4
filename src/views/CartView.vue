@@ -7,7 +7,7 @@
     </div>
     <div v-else class="cart-items">
       <div>
-        <button @click="makeOrder()">Оформить заказ</button>
+        <router-link to="/orders"><button @click="makeOrder()">Оформить заказ</button></router-link>
       </div>
       <CartItem 
         v-for="(item, index) in cartItems" 
