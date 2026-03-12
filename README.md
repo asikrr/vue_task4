@@ -1,19 +1,33 @@
-# my-app
+# Сервиса заказа товаров «Просто купить»
 
-## Project setup
+## Перед запуском убедитесь, что:
+- У вас установлен Node.js (рекомендуемая версия 24.14.0). Установить можно с официального сайта (https://nodejs.org). Проверить наличие Node.js и npm можно с помощью выполнения следующих команд в командной строке (если после выполнения появились версии - все установлено правильно):
+```
+node -v
+npm -v
+```
+
+## Инструкция по запуску
+1. Клонируйте проект в пустую папку
+```
+https://github.com/asikrr/vue_task4.git
+```
+2. Перейдите в папку проекта
+```
+cd vue_task4
+```
+3. Установите зависимости
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
+4. Запустите проект
 ```
 npm run serve
 ```
+5. Перейдите по появившемуся локальному адресу (обычно http://localhost:8080)
+6. Для остановки сервера нужно сочетание клавиш Ctrl + C
 
-### Compiles and minifies for production
+### Сборка проекта для продакшена
 ```
 npm run build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
