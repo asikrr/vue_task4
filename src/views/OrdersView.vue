@@ -1,7 +1,7 @@
 <template>
   <section class="orders-view-container">
+    <router-link to="/">&lt; Назад в каталог</router-link>
     <h1>Оформленные заказы</h1>
-    <router-link to="/">&lt; Назад</router-link>
 
     <div v-if="ordersList.length === 0">
       <p>Список заказов пуст</p>

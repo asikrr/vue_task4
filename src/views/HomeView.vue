@@ -1,15 +1,5 @@
 <template>
   <div class="wrapper">
-    <div>
-      <div v-if="!isLoggedIn">
-        <router-link to="/login">Вход</router-link>
-        <router-link to="/signup">Регистрация</router-link>
-      </div>
-      <div v-else>
-        <button @click="logout" class="danger-button">Выйти</button>
-      </div>
-    </div>
-
     <h1>Каталог товаров</h1>
     <div class="product-catalog">
       <ProductCard 
@@ -49,15 +39,6 @@
     transition: 0.3s;
     background-color: #9cc54f;
   }
-
-  .danger-button {
-    background-color: #c96e6e;
-  }
-
-  .danger-button:hover {
-    background-color: #b63c3c;
-    color: #fff;
-  }
 </style>
 
 <script>
@@ -72,13 +53,7 @@ export default {
   data() {
     return {
       products: [],
-      isLoading: true
     };
-  },
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters.isAuthenticated;
-    }
   },
   async mounted() {
     try {
@@ -87,14 +62,6 @@ export default {
     catch (error) {
       console.error(error);
     } 
-    finally {
-      this.isLoading = false;
-    }
   },
-  methods: {
-    async logout() {
-      await this.$store.dispatch('LOGOUT');
-    }
-  }
 };
 </script>
