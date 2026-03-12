@@ -1,6 +1,9 @@
 <template>
   <div class="wrapper">
     <h1>Каталог товаров</h1>
+    <div v-if="isLoading">
+      <p>Загрузка каталога товаров...</p>
+    </div>
     <div class="product-catalog">
       <ProductCard 
         v-for="item in products" 
@@ -54,6 +57,11 @@ export default {
     return {
       products: [],
     };
+  },
+  computed: {
+    isLoading() {
+      return this.$store.getters.isLoading;
+    }
   },
   async mounted() {
     try {

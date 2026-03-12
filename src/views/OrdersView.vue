@@ -2,7 +2,9 @@
   <section class="orders-view-container">
     <router-link to="/">&lt; Назад в каталог</router-link>
     <h1>Оформленные заказы</h1>
-
+    <div v-if="isLoading">
+      <p>Загрузка списка заказов...</p>
+    </div>
     <div v-if="ordersList.length === 0">
       <p>Список заказов пуст</p>
     </div>
@@ -32,6 +34,9 @@ export default {
     },
     productsList() {
       return this.$store.getters.productsList;
+    },
+    isLoading() {
+      return this.$store.getters.isLoading;
     }
   }
 }

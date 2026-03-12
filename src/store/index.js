@@ -17,9 +17,13 @@ export default createStore({
     cart: [],
     orders: [],
     products: [],
+    isLoading: false
   },
   getters: {
     isAuthenticated: (state) => !!state.token,
+    ordersList: (state) => state.orders,
+    productsList: (state) => state.products,
+    isLoading: (state) => state.isLoading,
     cartItems: (state) => {
       const productGroup = {};
       state.cart.forEach(item => {
@@ -40,19 +44,20 @@ export default createStore({
 
       return Object.values(productGroup);
     },
-    ordersList: (state) => state.orders,
     cartTotalPrice: (state, getters) => {
       let total = 0;
-
+      
       for (const item of getters.cartItems) {
         total += item.price * item.quantity;
       }
-
+      
       return total;
     },
-    productsList: (state) => state.products,
   },
   mutations: {
+    SET_LOADING(state, value) {
+      state.isLoading = value;
+    },
     SET_CART(state, cart) {
       state.cart = cart;
     },
@@ -118,6 +123,8 @@ export default createStore({
     },
     async LOAD_DATA_FROM_SERVER({ commit, state }) {
       if (!state.token) return;
+      commit('SET_LOADING', true);
+
       try {
         const [cartData, ordersData, productsData] = await Promise.all([
           getCartRequest(),
@@ -134,6 +141,9 @@ export default createStore({
         commit('SET_CART', []);
         commit('SET_ORDERS', []);
         commit('SET_PRODUCTS', []);
+      }
+      finally {
+        commit('SET_LOADING', false);
       }
     },
     INIT_STORE({ dispatch, state }) {
