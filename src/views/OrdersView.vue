@@ -5,10 +5,9 @@
     <div v-if="isLoading">
       <p>Загрузка списка заказов...</p>
     </div>
-    <div v-if="ordersList.length === 0">
+    <div v-else-if="ordersList.length === 0">
       <p>Список заказов пуст</p>
     </div>
-
     <div v-else class="orders-list">
       <OrderItem
         v-for="order in ordersList"

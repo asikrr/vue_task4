@@ -26,6 +26,7 @@ export default createStore({
     isLoading: (state) => state.isLoading,
     cartItems: (state) => {
       const productGroup = {};
+
       state.cart.forEach(item => {
         const key = item.product_id;
 
@@ -42,7 +43,13 @@ export default createStore({
         }
       });
 
-      return Object.values(productGroup);
+      const result = [];
+
+      for (const key in productGroup) {
+        result.push(productGroup[key]);
+      }
+
+      return result;
     },
     cartTotalPrice: (state, getters) => {
       let total = 0;
@@ -121,9 +128,11 @@ export default createStore({
         localStorage.removeItem('myAppToken');
       }
     },
-    async LOAD_DATA_FROM_SERVER({ commit, state }) {
+    async LOAD_DATA_FROM_SERVER({ commit, state }, showLoader = true) {
       if (!state.token) return;
-      commit('SET_LOADING', true);
+      if (showLoader) {
+        commit('SET_LOADING', true);
+      }
 
       try {
         const [cartData, ordersData, productsData] = await Promise.all([
@@ -154,7 +163,7 @@ export default createStore({
     async ADD_TO_CART({ dispatch }, productId) {
       try {
         await addToCartRequest(productId);
-        await dispatch('LOAD_DATA_FROM_SERVER');
+        await dispatch('LOAD_DATA_FROM_SERVER', false);
       }
       catch (error) {
         console.error('Ошибка добавления в корзину:', error);
@@ -165,7 +174,7 @@ export default createStore({
     async REMOVE_FROM_CART({ dispatch }, itemId) {
       try {
         await removeFromCartRequest(itemId);
-        await dispatch('LOAD_DATA_FROM_SERVER');
+        await dispatch('LOAD_DATA_FROM_SERVER', false);
       }
       catch (error) {
         console.error('Ошибка удаления из корзины:', error);
@@ -187,7 +196,7 @@ export default createStore({
     async INCREMENT_ITEM({ dispatch }, productId) {
       try {
         await addToCartRequest(productId);
-        await dispatch('LOAD_DATA_FROM_SERVER');
+        await dispatch('LOAD_DATA_FROM_SERVER', false);
       }
       catch (error) {
         console.error('Ошибка увеличения количества товара:', error);
@@ -201,7 +210,7 @@ export default createStore({
 
         const cartItemId = product.cartItemIds[0];
         await removeFromCartRequest(cartItemId);
-        await dispatch('LOAD_DATA_FROM_SERVER');
+        await dispatch('LOAD_DATA_FROM_SERVER', false);
       }
       catch (error) {
         console.error('Ошибка уменьшения количества товара:', error);
@@ -217,7 +226,7 @@ export default createStore({
           await removeFromCartRequest(cartItemId);
         }
 
-        await dispatch('LOAD_DATA_FROM_SERVER');
+        await dispatch('LOAD_DATA_FROM_SERVER', false);
       }
       catch (error) {
         console.error('Ошибка полного удаления товара из корзины:', error);

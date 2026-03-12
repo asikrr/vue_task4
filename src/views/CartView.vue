@@ -5,7 +5,7 @@
     <div v-if="isLoading">
       <p>Загрузка корзины...</p>
     </div>
-    <div v-if="$store.getters.cartItems.length === 0">
+    <div v-else-if="$store.getters.cartItems.length === 0">
       <p>Корзина пуста</p>
     </div>
     <div v-else class="cart-items">
