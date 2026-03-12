@@ -89,12 +89,9 @@ export default createStore({
         throw error;
       }
     },
-    async REGISTER({ commit, dispatch }, credentials) {
+    async REGISTER({ commit }, credentials) {
       try {
-        const token = await registerRequest(credentials);
-        commit('AUTH_SUCCESS', { token, email: credentials.email });
-        localStorage.setItem('myAppToken', token);
-        await dispatch('LOAD_DATA_FROM_SERVER');
+        await registerRequest(credentials);
         return true;
       }
       catch (error) {

@@ -162,7 +162,7 @@ export default {
 
         try {
             await this.$store.dispatch('REGISTER', this.form);
-            this.$router.push('/'); 
+            this.$router.push('/login');
         } 
         catch (err) {
             console.error(err);
