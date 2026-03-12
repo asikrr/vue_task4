@@ -2,6 +2,9 @@
   <div class="wrapper">
     <nav>
       <div class="nav-links">
+        <router-link to="/" class="logo-link">
+          <img src="./assets/free-icon-groceries-135763.png" class="logo">
+        </router-link>
         <router-link to="/">Главная</router-link> 
         <router-link v-if="isAuthenticated" to="/cart">Корзина</router-link>
         <router-link v-if="isAuthenticated" to="/orders">Оформленные заказы</router-link>
@@ -22,15 +25,15 @@
 
 <style>
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    max-width: 1920px;
-    margin: auto;
-    background-color: #eff1eb;
+  max-width: 1920px;
+  margin: auto;
+  background-color: #f7f0eb;
 }
 
 #app {
@@ -38,11 +41,8 @@ body {
   text-align: center;
 }
 
-.wrapper {
-  max-width: 1200px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
+.logo {
+  width: 60px;
 }
 
 nav {
@@ -50,10 +50,13 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .nav-links {
   display: flex;
+  align-items: flex-end;
   gap: 20px;
 }
 
@@ -72,7 +75,7 @@ a:hover:not(.router-link-exact-active) {
   color: #9cc54f;
 }
 
-nav a.router-link-exact-active {
+nav a.router-link-exact-active:not(.logo-link) {
   border-bottom: 3px solid #9cc54f;
   padding-bottom: 3px;
 }

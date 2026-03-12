@@ -37,7 +37,6 @@
 
   .cart-items > div {
     display: flex;
-    flex-direction: column;
     align-self: flex-end;
     align-items: flex-end;
     gap: 10px;
