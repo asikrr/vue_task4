@@ -5,7 +5,7 @@
     </div>
     <div class="card-info">
       <h3 class="card-title">{{ product.name }}</h3>
-      <p class="card-price">{{ totalPrice }}₽</p>
+      <p class="card-price">{{ totalProductPrice }}₽</p>
       <div class="quantity-controls">
         <button @click="decrement" :disabled="product.quantity <= 1">-</button>
         <span>{{ product.quantity }} шт.</span>
@@ -99,28 +99,24 @@ export default {
       type: Object,
       required: true
     },
-    index: {
-      type: Number,
-      required: true
-    }
   },
   computed: {
     imageUrl() {
       return `http://lifestealer86.ru/${this.product.image}`;
     },
-    totalPrice() {
-      return (this.product.price * this.product.quantity).toFixed(2);
+    totalProductPrice() {
+      return this.product.price * this.product.quantity;
     }
   },
   methods: {
     removeFromCart() {
-      this.$store.commit('REMOVE_FROM_CART', this.index);
+      this.$store.dispatch('REMOVE_GROUP_FROM_CART', this.product);
     },
     increment() {
-      this.$store.commit('INCREMENT_ITEM', this.index);
+      this.$store.dispatch('INCREMENT_ITEM', this.product.product_id);
     },
     decrement() {
-      this.$store.commit('DECREMENT_ITEM', this.index);
+      this.$store.dispatch('DECREMENT_ITEM', this.product);
     }
   }
 };

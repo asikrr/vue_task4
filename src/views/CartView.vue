@@ -2,18 +2,18 @@
   <section class="cart-container">
     <h1>Корзина</h1>
     <router-link to="/">&lt Назад</router-link>
-    <div v-if="cartItems.length === 0">
+    <div v-if="$store.getters.cartItems.length === 0">
       <p>Корзина пуста</p>
     </div>
     <div v-else class="cart-items">
       <div>
+        <p class="total-price">Итого: {{ cartTotalPrice }}₽</p>
         <router-link to="/orders"><button @click="makeOrder()">Оформить заказ</button></router-link>
       </div>
       <CartItem 
-        v-for="(item, index) in cartItems" 
-        :key="index" 
-        :product="item" 
-        :index="index"
+        v-for="item in $store.getters.cartItems"
+        :key="item.product_id"
+        :product="item"
       >
       </CartItem>
     </div>
@@ -36,7 +36,11 @@
   }
 
   .cart-items > div {
+    display: flex;
+    flex-direction: column;
     align-self: flex-end;
+    align-items: flex-end;
+    gap: 10px;
   }
 
   button {
@@ -65,6 +69,9 @@ export default {
   computed: {
     cartItems() {
       return this.$store.getters.cartItems;
+    },
+    cartTotalPrice() {
+      return this.$store.getters.cartTotalPrice;
     }
   },
   methods: {
@@ -72,7 +79,7 @@ export default {
       return `http://lifestealer86.ru/${path}`;
     },
     makeOrder() {
-      this.$store.commit('MAKE_ORDER');
+      this.$store.dispatch('MAKE_ORDER');
     }
   }
 };

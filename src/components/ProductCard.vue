@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$store.commit('ADD_TO_CART', this.product);
+      this.$store.dispatch('ADD_TO_CART', this.product.id);
     }
   }
 };
