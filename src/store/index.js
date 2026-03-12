@@ -17,13 +17,15 @@ export default createStore({
     cart: [],
     orders: [],
     products: [],
-    isLoading: false
+    isLoading: false,
+    notification: null
   },
   getters: {
     isAuthenticated: (state) => !!state.token,
     ordersList: (state) => state.orders,
     productsList: (state) => state.products,
     isLoading: (state) => state.isLoading,
+    notification: (state) => state.notification,
     cartItems: (state) => {
       const productGroup = {};
 
@@ -71,6 +73,15 @@ export default createStore({
     SET_ORDERS(state, orders) {
       state.orders = orders;
     },
+    SET_PRODUCTS(state, products) {
+      state.products = products;
+    },
+    SET_NOTIFICATION(state, notification) {
+      state.notification = notification;
+    },
+    CLEAR_NOTIFICATION(state) {
+      state.notification = null;
+    },
     AUTH_SUCCESS: (state, { token, email }) => {
       state.token = token;
       state.userEmail = email;
@@ -80,12 +91,21 @@ export default createStore({
       state.userEmail = '';
       state.cart = [];
       state.orders = [];
-    },
-    SET_PRODUCTS(state, products) {
-      state.products = products;
+      state.products = [];
+      state.notification = null;
     },
   },
   actions: {
+    SHOW_NOTIFICATION({ commit }, notification) {
+      commit('SET_NOTIFICATION', notification);
+
+      setTimeout(() => {
+        commit('CLEAR_NOTIFICATION');
+      }, 2000);
+    },
+    CLEAR_NOTIFICATION({ commit }) {
+      commit('CLEAR_NOTIFICATION');
+    },
     async AUTH_REQUEST({ commit, dispatch }, credentials) {
       try {
         const token = await loginRequest(credentials);
@@ -96,40 +116,61 @@ export default createStore({
       }
       catch (error) {
         console.error('Ошибка входа:', error);
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'error',
+          message: 'Не удалось выполнить вход'
+        });
         commit('AUTH_ERROR');
         localStorage.removeItem('myAppToken');
         throw error;
       }
     },
-    async REGISTER({ commit }, credentials) {
+    async REGISTER({ commit, dispatch }, credentials) {
       try {
         await registerRequest(credentials);
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'success',
+          message: 'Регистрация прошла успешно'
+        });
         return true;
       }
       catch (error) {
         console.error('Ошибка регистрации:', error);
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'error',
+          message: 'Не удалось зарегистрироваться'
+        });
         commit('AUTH_ERROR');
         localStorage.removeItem('myAppToken');
         throw error;
       }
     },
-    async LOGOUT({ commit }) {
+    async LOGOUT({ commit, dispatch }) {
       try {
         const token = localStorage.getItem('myAppToken');
         if (token) {
           await logoutRequest(token);
+            dispatch('SHOW_NOTIFICATION', {
+            type: 'success',
+            message: 'Регистрация прошла успешно'
+          });
         }
       }
-      catch (e) {
-        console.error('Ошибка при выходе:', e);
+      catch (error) {
+        console.error('Ошибка при выходе:', error);
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'error',
+          message: 'Не удалось корректно выполнить выход'
+        });
       }
       finally {
         commit('AUTH_ERROR');
         localStorage.removeItem('myAppToken');
       }
     },
-    async LOAD_DATA_FROM_SERVER({ commit, state }, showLoader = true) {
+    async LOAD_DATA_FROM_SERVER({ commit, dispatch, state }, showLoader = true) {
       if (!state.token) return;
+
       if (showLoader) {
         commit('SET_LOADING', true);
       }
@@ -147,6 +188,10 @@ export default createStore({
       }
       catch (error) {
         console.error('Ошибка загрузки данных пользователя:', error);
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'error',
+          message: 'Не удалось загрузить данные пользователя'
+        });
         commit('SET_CART', []);
         commit('SET_ORDERS', []);
         commit('SET_PRODUCTS', []);
@@ -164,32 +209,31 @@ export default createStore({
       try {
         await addToCartRequest(productId);
         await dispatch('LOAD_DATA_FROM_SERVER', false);
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'success',
+          message: 'Товар добавлен в корзину'
+        });
       }
       catch (error) {
         console.error('Ошибка добавления в корзину:', error);
-        alert('Не удалось добавить товар в корзину');
-        throw error;
-      }
-    },
-    async REMOVE_FROM_CART({ dispatch }, itemId) {
-      try {
-        await removeFromCartRequest(itemId);
-        await dispatch('LOAD_DATA_FROM_SERVER', false);
-      }
-      catch (error) {
-        console.error('Ошибка удаления из корзины:', error);
-        alert('Не удалось удалить товар');
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'error',
+          message: 'Не удалось добавить товар в корзину'
+        });
         throw error;
       }
     },
     async MAKE_ORDER({ dispatch }) {
       try {
         await createOrderRequest();
-        alert('Заказ успешно оформлен!');
         await dispatch('LOAD_DATA_FROM_SERVER');
       }
       catch (error) {
         console.error('Ошибка оформления заказа:', error);
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'error',
+          message: 'Не удалось оформить заказ'
+        });
         throw error;
       }
     },
@@ -200,7 +244,10 @@ export default createStore({
       }
       catch (error) {
         console.error('Ошибка увеличения количества товара:', error);
-        alert('Не удалось увеличить количество товара');
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'error',
+          message: 'Не удалось увеличить количество товара'
+        });
         throw error;
       }
     },
@@ -214,11 +261,14 @@ export default createStore({
       }
       catch (error) {
         console.error('Ошибка уменьшения количества товара:', error);
-        alert('Не удалось уменьшить количество товара');
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'error',
+          message: 'Не удалось уменьшить количество товара'
+        });
         throw error;
       }
     },
-    async REMOVE_GROUP_FROM_CART({ dispatch }, product) {
+    async REMOVE_FROM_CART({ dispatch }, product) {
       try {
         if (!product.cartItemIds || !product.cartItemIds.length) return;
 
@@ -227,10 +277,17 @@ export default createStore({
         }
 
         await dispatch('LOAD_DATA_FROM_SERVER', false);
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'success',
+          message: 'Товар успешно удален из корзины'
+        });
       }
       catch (error) {
         console.error('Ошибка полного удаления товара из корзины:', error);
-        alert('Не удалось удалить товар');
+        dispatch('SHOW_NOTIFICATION', {
+          type: 'error',
+          message: 'Не удалось удалить товар'
+        });
         throw error;
       }
     },

@@ -19,6 +19,9 @@
         </div>
       </div>
     </nav>
+    <div v-if="notification" :class="['notification', notification.type]">
+      {{ notification.message }}
+    </div>
     <router-view/>
   </div>
 </template>
@@ -43,6 +46,27 @@ body {
 
 .logo {
   width: 60px;
+}
+
+.notification {
+  position: fixed;
+  top: 40px;
+  left: 40px;
+  z-index: 1;
+  padding: 15px 20px;
+  border-radius: 10px;
+}
+
+.notification.success {
+  background-color: #dff0c8;
+  color: #759933;
+  border: 1px solid #b5ce87;
+}
+
+.notification.error {
+  background-color: #f8d7da;
+  color: #b63c3c;
+  border: 1px solid #c96e6e;
 }
 
 nav {
@@ -110,11 +134,15 @@ export default {
     },
     isLoggedIn() {
       return this.$store.getters.isAuthenticated;
+    },
+    notification() {
+      return this.$store.getters.notification;
     }
   },
   methods: {
     async logout() {
       await this.$store.dispatch('LOGOUT');
+      this.$router.push('/');
     }
   }
 };

@@ -110,7 +110,7 @@ export default {
   },
   methods: {
     removeFromCart() {
-      this.$store.dispatch('REMOVE_GROUP_FROM_CART', this.product);
+      this.$store.dispatch('REMOVE_FROM_CART', this.product);
     },
     increment() {
       this.$store.dispatch('INCREMENT_ITEM', this.product.product_id);
