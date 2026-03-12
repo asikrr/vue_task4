@@ -60,7 +60,7 @@
 nav {
   padding: 30px 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   max-width: 1200px;
   margin: auto;
