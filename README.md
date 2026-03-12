@@ -10,7 +10,7 @@ npm -v
 ## Инструкция по запуску
 1. Клонируйте проект в пустую папку
 ```
-https://github.com/asikrr/vue_task4.git
+git clone https://github.com/asikrr/vue_task4.git
 ```
 2. Перейдите в папку проекта
 ```
