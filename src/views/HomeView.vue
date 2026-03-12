@@ -28,20 +28,6 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
   }
-
-  button {
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 15px;
-    background-color: #b5ce87;
-  }
-
-  button:hover {
-    transform: scale(1.05);
-    transition: 0.3s;
-    background-color: #9cc54f;
-  }
 </style>
 
 <script>

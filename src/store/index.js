@@ -128,10 +128,6 @@ export default createStore({
     async REGISTER({ commit, dispatch }, credentials) {
       try {
         await registerRequest(credentials);
-        dispatch('SHOW_NOTIFICATION', {
-          type: 'success',
-          message: 'Регистрация прошла успешно'
-        });
         return true;
       }
       catch (error) {
@@ -150,17 +146,13 @@ export default createStore({
         const token = localStorage.getItem('myAppToken');
         if (token) {
           await logoutRequest(token);
-            dispatch('SHOW_NOTIFICATION', {
-            type: 'success',
-            message: 'Регистрация прошла успешно'
-          });
         }
       }
       catch (error) {
         console.error('Ошибка при выходе:', error);
         dispatch('SHOW_NOTIFICATION', {
           type: 'error',
-          message: 'Не удалось корректно выполнить выход'
+          message: 'Не удалось выполнить выход'
         });
       }
       finally {

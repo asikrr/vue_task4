@@ -7,9 +7,9 @@
       <h3 class="card-title">{{ product.name }}</h3>
       <p class="card-price">{{ totalProductPrice }}₽</p>
       <div class="quantity-controls">
-        <button @click="decrement" :disabled="product.quantity <= 1">-</button>
+        <button @click="decrement" class="default-button" :disabled="product.quantity <= 1">-</button>
         <span>{{ product.quantity }} шт.</span>
-        <button @click="increment">+</button>
+        <button @click="increment" class="default-button">+</button>
       </div>
       <button @click="removeFromCart" class="danger-button">Удалить</button>
     </div>
@@ -54,34 +54,6 @@
     width: 100%;
     height: 100%;
     object-fit: contain; 
-  }
-
-  button {
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 15px;
-    background-color: #b5ce87;
-  }
-
-  button:hover:not(:disabled) {
-    transform: scale(1.05);
-    transition: 0.3s;
-    background-color: #9cc54f;
-  }
-
-  button:disabled {
-    cursor: default;
-    background-color: #cfcfcf;
-  }
-
-  .danger-button {
-    background-color: #c96e6e;
-  }
-
-  .card-info .danger-button:hover {
-    background-color: #b63c3c;
-    color: #fff;
   }
 
   .quantity-controls {

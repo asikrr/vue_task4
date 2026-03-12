@@ -30,7 +30,7 @@
                 />
             </div>
             <hr />
-            <button type="submit">Вход</button>
+            <button type="submit" class="default-button">Вход</button>
         </form>
         <div>
             Еще нет аккаунта? <router-link to="/signup">Зарегистрироваться</router-link>
@@ -46,20 +46,6 @@
         align-items: center;     
         min-height: 80vh; 
         gap: 20px;
-    }
-
-    button {
-        cursor: pointer;
-        border: none;
-        border-radius: 10px;
-        padding: 10px 15px;
-        background-color: #b5ce87;
-        transition: 0.3s;
-    }
-
-    button:hover {
-        transform: scale(1.05);
-        background-color: #9cc54f;
     }
 
     .login-form {

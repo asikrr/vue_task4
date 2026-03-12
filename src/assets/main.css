@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 1920px;
+    margin: auto;
+    background-color: #f7f0eb;
+}
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #3b3b3b;
+}
+
+a:hover:not(.router-link-exact-active) {
+    color: #9cc54f;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+button:disabled {
+    cursor: default;
+    background-color: #cfcfcf;
+}
+
+button:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.default-button {
+    background-color: #b5ce87;
+}
+
+.default-button:hover:not(:disabled) {
+    background-color: #9cc54f;
+}
+
+.danger-button {
+    background-color: #db7575;
+}
+
+.danger-button:hover {
+    background-color: #b63c3c;
+    color: #fff;
+}

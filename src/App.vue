@@ -3,7 +3,7 @@
     <nav>
       <div class="nav-links">
         <router-link to="/" class="logo-link">
-          <img src="./assets/free-icon-groceries-135763.png" class="logo">
+          <img src="./assets/logo.png" class="logo" alt="Логотип">
         </router-link>
         <router-link to="/">Главная</router-link> 
         <router-link v-if="isAuthenticated" to="/cart">Корзина</router-link>
@@ -27,18 +27,6 @@
 </template>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  max-width: 1920px;
-  margin: auto;
-  background-color: #f7f0eb;
-}
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
@@ -89,40 +77,10 @@ nav {
   gap: 20px;
 }
 
-a {
-  font-weight: bold;
-  text-decoration: none;
-  color: #3b3b3b;;
-}
-
-a:hover:not(.router-link-exact-active) {
-  color: #9cc54f;
-}
-
 nav a.router-link-exact-active:not(.logo-link) {
   border-bottom: 3px solid #9cc54f;
   padding-bottom: 3px;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 15px;
-}
-
-button:hover {
-  transform: scale(1.05);
-  transition: 0.3s;
-}
-
-.danger-button {
-  background-color: #c96e6e;
-}
-
-.danger-button:hover {
-  background-color: #b63c3c;
-  color: #fff;
+  transition: 0.2s ease;
 }
 </style>
 

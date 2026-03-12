@@ -11,7 +11,7 @@
     <div v-else class="cart-items">
       <div>
         <p class="total-price">Итого: {{ cartTotalPrice }}₽</p>
-        <router-link to="/orders"><button @click="makeOrder()">Оформить заказ</button></router-link>
+        <router-link to="/orders"><button @click="makeOrder()" class="default-button">Оформить заказ</button></router-link>
       </div>
       <CartItem 
         v-for="item in $store.getters.cartItems"
@@ -30,6 +30,7 @@
     gap: 30px;
     max-width: 1200px;
     margin: auto;
+    padding-bottom: 50px;
   }
 
   .cart-items {
@@ -43,20 +44,6 @@
     align-self: flex-end;
     align-items: flex-end;
     gap: 10px;
-  }
-
-  button {
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 15px;
-    background-color: #b5ce87;
-  }
-
-  button:hover {
-    transform: scale(1.05);
-    transition: 0.3s;
-    background-color: #9cc54f;
   }
 </style>
 

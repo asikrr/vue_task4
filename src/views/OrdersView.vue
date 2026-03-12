@@ -1,5 +1,5 @@
 <template>
-  <section class="orders-view-container">
+  <section class="orders-container">
     <router-link to="/">&lt; Назад в каталог</router-link>
     <h1>Оформленные заказы</h1>
     <div v-if="isLoading">
@@ -42,12 +42,13 @@ export default {
 </script>
 
 <style scoped>
-  .orders-view-container {
+  .orders-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
     max-width: 1200px;
     margin: auto;
+    padding-bottom: 50px;
   }
 
   .orders-list {

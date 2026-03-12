@@ -35,7 +35,7 @@
         />
       </div>
       <hr />
-      <button type="submit">Создать аккаунт</button>
+      <button type="submit" class="default-button">Создать аккаунт</button>
     </form>
     <div>
       Уже есть аккаунт? <router-link to="/login">Войти</router-link>
@@ -52,21 +52,7 @@
         min-height: 80vh; 
         gap: 20px;
     }
-
-    button {
-        cursor: pointer;
-        border: none;
-        border-radius: 10px;
-        padding: 10px 15px;
-        background-color: #b5ce87;
-        transition: 0.3s;
-    }
-
-    button:hover {
-        transform: scale(1.05);
-        background-color: #9cc54f;
-    }
-
+    
     .register-form {
         display: flex;
         flex-direction: column;

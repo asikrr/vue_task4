@@ -8,7 +8,7 @@
       <p class="card-description">{{ product.description }}</p>
       <div class="card-cart">
         <p class="card-price">{{ product.price }}₽</p>
-        <button v-if="isAuthenticated" @click="addToCart">Добавить в корзину</button>
+        <button v-if="isAuthenticated" @click="addToCart" class="default-button">Добавить в корзину</button>
       </div>
     </div>
   </article>
@@ -65,20 +65,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover
-  }
-
-  button {
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 15px;
-    background-color: #b5ce87;
-  }
-
-  button:hover {
-    transform: scale(1.05);
-    transition: 0.3s;
-    background-color: #9cc54f;
   }
 </style>
 
