@@ -82,13 +82,11 @@ export default createStore({
     CLEAR_NOTIFICATION(state) {
       state.notification = null;
     },
-    AUTH_SUCCESS: (state, { token, email }) => {
+    AUTH_SUCCESS: (state, token) => {
       state.token = token;
-      state.userEmail = email;
     },
     AUTH_ERROR: (state) => {
       state.token = '';
-      state.userEmail = '';
       state.cart = [];
       state.orders = [];
       state.products = [];
