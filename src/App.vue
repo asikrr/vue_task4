@@ -1,8 +1,8 @@
 <template>
   <nav>
-    <router-link to="/">Главная</router-link> |
-    <router-link to="/cart">Корзина</router-link> |
-    <router-link to="/orders">Оформленные заказы</router-link>
+    <router-link to="/">Главная</router-link> 
+    <router-link v-if="isAuthenticated" to="/cart">Корзина</router-link>
+    <router-link v-if="isAuthenticated" to="/orders">Оформленные заказы</router-link>
   </nav>
   <router-view/>
 </template>
@@ -44,3 +44,13 @@ nav a.router-link-exact-active {
   padding-bottom: 3px;
 }
 </style>
+
+<script>
+export default {
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    }
+  },
+};
+</script>

@@ -16,6 +16,7 @@
                     v-model="email"
                     :class="{ 'input-error': hasError }"
                     @input="resetError"
+                    placeholder="example@gmail.com" 
                 />
             </div>
             <div class="form-field">

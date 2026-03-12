@@ -8,7 +8,7 @@
       <p class="card-description">{{ product.description }}</p>
       <div class="card-cart">
         <p class="card-price">{{ product.price }}₽</p>
-        <button @click="addToCart">Добавить в корзину</button>
+        <button v-if="isAuthenticated" @click="addToCart">Добавить в корзину</button>
       </div>
     </div>
   </article>
@@ -94,6 +94,9 @@ export default {
   computed: {
     imageUrl() {
       return `http://lifestealer86.ru/${this.product.image}`;
+    },
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
     }
   },
   methods: {

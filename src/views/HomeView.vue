@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div>
       <div v-if="!isLoggedIn">
-        <router-link to="/login">Вход</router-link> | 
+        <router-link to="/login">Вход</router-link>
         <router-link to="/signup">Регистрация</router-link>
       </div>
       <div v-else>
